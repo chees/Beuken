@@ -1,24 +1,14 @@
-var id = '';
 var lastDir = 0;
 var mouseDown = false;
 var dpad = document.getElementById('dpad');
+var socket = io.connect('http://localhost');
 
-function createPlayer() {
-	// TODO
-	console.log('createPlayer');
-	/*
-	$.post('createplayer', function(data) {
-		id = data.id;
-	});
-	*/
-}
 
 function sendDirection(dir) {
 	if (lastDir == dir) return;
 	lastDir = dir;
-	// TODO
-	console.log('sendDirection '+dir);
-	//$.post('move', {id: id, dir: dir});
+	console.log('dir '+dir);
+	socket.emit('dir', dir);
 }
 
 function handleEvent(e) {
@@ -48,6 +38,11 @@ function handleEvent(e) {
 	}
 }
 
+function handleMsg(data) {
+	// TODO
+	console.log(data);
+}
+
 function init() {
 	if(typeof(document.ontouchmove) != 'undefined') {
 		// Doesn't seem to work when using JQuery bind:
@@ -65,13 +60,8 @@ function init() {
 			mouseDown = false;
 		});
 	}
-	createPlayer();
 
-	var socket = io.connect('http://localhost');
-	socket.on('news', function (data) {
-		console.log(data);
-		socket.emit('my other event', { my: 'data' });
-	});
+	socket.on('msg', handleMsg);
 }
 
 init();

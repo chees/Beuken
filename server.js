@@ -17,10 +17,13 @@ app.get('/game', function(req, res) {
 var io = require('socket.io').listen(app);
 
 io.sockets.on('connection', function(socket) {
-	io.sockets.emit('news', { hi: 'new'});
-	socket.emit('news', { hello: 'world' });
-	socket.on('my other event', function(data) {
-		console.log(data);
+	// TODO give the player some id so it can be tracked by the game
+	console.log('New player');
+	socket.emit('msg', { hello: 'world' });
+	//io.sockets.emit('news', { hi: 'new'});
+	socket.on('dir', function(data) {
+		console.log('dir ' + data);
+		// TODO forward it to the game
 	});
 });
 
