@@ -1,0 +1,14 @@
+This is a game for w00tcamp.
+
+You need Node and npm.
+You can then install the dependencies by typing:
+
+npm install
+
+
+Run the server by typing:
+
+node server.js
+
+
+
